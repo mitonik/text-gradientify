@@ -1,0 +1,7 @@
+@import url("primereact/resources/themes/md-light-deeppurple/theme.css");
+@import url("material-symbols");
+
+:root {
+  background-color: var(--surface-section);
+  color: var(--text-color);
+}
