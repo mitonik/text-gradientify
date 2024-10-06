@@ -14,7 +14,7 @@ const MODES: chroma.InterpolationMode[] = [
   "oklch",
   "rgb",
 ];
-const STYLES = ["Normal", "𝑀𝑎𝑡ℎ𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝐼𝑡𝑎𝑙𝑖𝑐"];
+const STYLES = ["Normal", "𝑀𝑎𝑡ℎ𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝐼𝑡𝑎𝑙𝑖𝑐", "𝐌𝐚𝐭𝐡𝐞𝐦𝐚𝐭𝐢𝐜𝐚𝐥 𝐁𝐨𝐥𝐝"];
 
 interface RenderOptionsChooserProps {
   onModeChange: (mode: InterpolationMode) => void;
