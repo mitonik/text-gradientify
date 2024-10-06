@@ -3,6 +3,7 @@ import { Toast } from "primereact/toast";
 import { useRef } from "react";
 import { mathematicalItalicMap } from "./maps/mathematical-italic";
 import { mathematicalBoldMap } from "./maps/mathematical-bold";
+import { mathematicalBoldItalicMap } from "./maps/mathematical-bold-italic";
 
 interface OutputProps {
   style: string;
@@ -23,6 +24,10 @@ export function Output(props: OutputProps) {
       case "𝐌𝐚𝐭𝐡𝐞𝐦𝐚𝐭𝐢𝐜𝐚𝐥 𝐁𝐨𝐥𝐝":
         return mathematicalBoldMap.get(letter)
           ? mathematicalBoldMap.get(letter)
+          : letter;
+      case "𝑴𝒂𝒕𝒉𝒆𝒎𝒂𝒕𝒊𝒄𝒂𝒍 𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄":
+        return mathematicalBoldItalicMap.get(letter)
+          ? mathematicalBoldItalicMap.get(letter)
           : letter;
       default:
         return letter;
