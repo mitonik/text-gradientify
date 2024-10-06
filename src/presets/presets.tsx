@@ -14,12 +14,16 @@ interface PresetsProps {
 
 export function Presets(props: PresetsProps) {
   const { onPresetSelect, presets, onPresetDelete } = props;
-  return presets.map((preset, index) => (
-    <PresetItem
-      onPresetSelect={(preset) => onPresetSelect(preset.settings)}
-      onPresetDelete={(name) => onPresetDelete(name)}
-      key={index}
-      preset={preset}
-    />
-  ));
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      {presets.map((preset, index) => (
+        <PresetItem
+          onPresetSelect={(preset) => onPresetSelect(preset.settings)}
+          onPresetDelete={(name) => onPresetDelete(name)}
+          key={index}
+          preset={preset}
+        />
+      ))}
+    </div>
+  );
 }

@@ -1,9 +1,7 @@
-import { Accordion, AccordionTab } from "primereact/accordion";
 import { Button } from "primereact/button";
 import { RenderOptionsChooser } from "./render-options-chooser";
 import { ColorSelector } from "./color-selector";
 import chroma, { InterpolationMode } from "chroma-js";
-import { Divider } from "primereact/divider";
 import { Sidebar } from "primereact/sidebar";
 import { useState } from "react";
 import { Preset, Presets } from "./presets/presets";
@@ -83,77 +81,73 @@ export function SettingsEditor(props: SettingsEditorProps) {
   });
 
   return (
-    <Accordion activeIndex={0}>
-      <AccordionTab header="Settings">
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
-        >
-          <ConfirmDialog
-            visible={dialogVisible}
-            onHide={() => setDialogVisible(false)}
-            message={
-              <InputText
-                value={newPresetName}
-                onChange={(e) => setNewPresetName(e.target.value)}
-              />
-            }
-            header={"name preset"}
-            defaultFocus="accept"
-            acceptLabel="Save"
-            rejectLabel="Cancel"
-            accept={() => {
-              setNewPresetName("");
-              setPresets([...presets, { name: newPresetName, settings }]);
-            }}
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <ConfirmDialog
+        visible={dialogVisible}
+        onHide={() => setDialogVisible(false)}
+        message={
+          <InputText
+            value={newPresetName}
+            onChange={(e) => setNewPresetName(e.target.value)}
           />
-          <div>
-            <Button label="Show presets" onClick={() => setVisible(true)} />
-            <Button
-              outlined
-              label="Save as preset"
-              onClick={() => setDialogVisible(true)}
-            />
-          </div>
-          <Sidebar
-            visible={visible}
-            onHide={() => setVisible(false)}
-            position="right"
-          >
-            <Presets
-              presets={presets}
-              onPresetDelete={(name) =>
-                setPresets((previousPresets) =>
-                  previousPresets.filter((preset) => preset.name !== name)
-                )
-              }
-              onPresetSelect={(settings) => {
-                onSettingsChange(settings);
-                setVisible(false);
-              }}
-            />
-          </Sidebar>
-          {mappedColors}
-          <div style={{ display: "flex", placeItems: "center" }}>
-            <Button
-              label="Add color"
-              icon={<span className="material-symbols-outlined">add</span>}
-              onClick={() =>
-                onSettingsChange({
-                  ...settings,
-                  colors: [...colors, DEFAULT_NEW_COLOR],
-                })
-              }
-            />
-          </div>
-          <Divider />
-          <RenderOptionsChooser
-            mode={mode}
-            onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
-            onStyleChange={(style) => onSettingsChange({ ...settings, style })}
-            style={style}
-          />
-        </div>
-      </AccordionTab>
-    </Accordion>
+        }
+        header="Name preset"
+        defaultFocus="accept"
+        acceptLabel="Save"
+        rejectLabel="Cancel"
+        accept={() => {
+          setNewPresetName("");
+          setPresets([...presets, { name: newPresetName, settings }]);
+        }}
+        reject={() => setNewPresetName("")}
+      />
+      <Sidebar
+        visible={visible}
+        onHide={() => setVisible(false)}
+        position="right"
+      >
+        <Presets
+          presets={presets}
+          onPresetDelete={(name) =>
+            setPresets((previousPresets) =>
+              previousPresets.filter((preset) => preset.name !== name)
+            )
+          }
+          onPresetSelect={(settings) => {
+            onSettingsChange(settings);
+            setVisible(false);
+          }}
+        />
+      </Sidebar>
+      <div style={{ display: "flex", gap: "0.5rem", flexDirection: "column" }}>
+        {mappedColors}
+      </div>
+      <div style={{ display: "flex", gap: "0.5rem", placeItems: "center" }}>
+        <RenderOptionsChooser
+          mode={mode}
+          onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
+          onStyleChange={(style) => onSettingsChange({ ...settings, style })}
+          style={style}
+        />
+        <Button
+          label="Add color"
+          icon={<span className="material-symbols-outlined">add</span>}
+          onClick={() =>
+            onSettingsChange({
+              ...settings,
+              colors: [...colors, DEFAULT_NEW_COLOR],
+            })
+          }
+        />
+      </div>
+      <div style={{ display: "flex", gap: "0.5rem" }}>
+        <Button label="Show presets" onClick={() => setVisible(true)} />
+        <Button
+          outlined
+          label="Save as preset"
+          onClick={() => setDialogVisible(true)}
+        />
+      </div>
+    </div>
   );
 }

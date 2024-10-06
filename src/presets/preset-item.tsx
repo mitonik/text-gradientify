@@ -13,18 +13,28 @@ export function PresetItem(props: PresetItemProps) {
   const { onPresetSelect, preset, onPresetDelete } = props;
 
   const footer = (
-    <>
+    <div style={{ display: "flex", gap: "0.5rem" }}>
       <Button label="Use" onClick={() => onPresetSelect(preset)} />
-      <Button label="Delete" onClick={() => onPresetDelete(preset.name)} />
-    </>
+      <Button
+        severity="danger"
+        outlined
+        label="Delete"
+        onClick={() => onPresetDelete(preset.name)}
+      />
+    </div>
   );
   return (
     <Card title={preset.name} footer={footer}>
-      {preset.settings.colors.map((color, index) => (
-        <ColorPicker value={color} key={index} />
-      ))}
-      <p>{preset.settings.mode}</p>
-      <p>{preset.settings.style}</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div>
+          {preset.settings.colors.map((color, index) => (
+            <ColorPicker value={color} key={index} />
+          ))}
+        </div>
+        <span>
+          {preset.settings.mode}, {preset.settings.style}
+        </span>
+      </div>
     </Card>
   );
 }
