@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { mathematicalItalicMap } from "./maps/mathematical-italic";
 import { mathematicalBoldMap } from "./maps/mathematical-bold";
 import { mathematicalBoldItalicMap } from "./maps/mathematical-bold-italic";
+import { mathematicalScriptMap } from "./maps/mathematical-script";
 
 interface OutputProps {
   style: string;
@@ -28,6 +29,10 @@ export function Output(props: OutputProps) {
       case "𝑴𝒂𝒕𝒉𝒆𝒎𝒂𝒕𝒊𝒄𝒂𝒍 𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄":
         return mathematicalBoldItalicMap.get(letter)
           ? mathematicalBoldItalicMap.get(letter)
+          : letter;
+      case "ℳ𝒶𝓉𝒽ℯ𝓂𝒶𝓉𝒾𝒸𝒶𝓁 𝒮𝒸𝓇𝒾𝓅𝓉":
+        return mathematicalScriptMap.get(letter)
+          ? mathematicalScriptMap.get(letter)
           : letter;
       default:
         return letter;
