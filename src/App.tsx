@@ -11,7 +11,7 @@ const INITIAL_TEXT =
 const INITIAL_COLORS = ["ff2424", "328a32", "008ae5"];
 const INITIAL_MODE = "rgb";
 const DEFAULT_NEW_COLOR = "000000";
-const INITIAL_STYLE = "Latin";
+const INITIAL_STYLE = "Normal";
 
 export function App() {
   const [colors, setColors] = useState(INITIAL_COLORS);

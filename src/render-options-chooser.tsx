@@ -14,7 +14,7 @@ const MODES: chroma.InterpolationMode[] = [
   "oklch",
   "rgb",
 ];
-const STYLES = ["Latin", "𝑀𝑎𝑡𝘩𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝑖𝑡𝑎𝑙𝑖𝑐"];
+const STYLES = ["Normal", "𝑀𝑎𝑡ℎ𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝐼𝑡𝑎𝑙𝑖𝑐"];
 
 interface RenderOptionsChooserProps {
   onModeChange: (mode: InterpolationMode) => void;
@@ -36,7 +36,7 @@ export function RenderOptionsChooser(props: RenderOptionsChooserProps) {
           optionLabel="name"
           placeholder="Select a mode"
         />
-        <label htmlFor="mode">Color mode</label>
+        <label htmlFor="mode">Mix mode</label>
       </FloatLabel>
       <FloatLabel>
         <Dropdown
