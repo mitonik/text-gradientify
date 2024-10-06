@@ -29,7 +29,7 @@ export function SettingsEditor(props: SettingsEditorProps) {
         onRemove={() => {
           const newColors = [...colors];
           const filteredColors = newColors.filter(
-            (_color, colorIndex) => colorIndex !== index
+            (_color, colorIndex) => colorIndex !== index,
           );
           const validColors = filteredColors.filter((color) => {
             if (!chroma.valid(color)) {
