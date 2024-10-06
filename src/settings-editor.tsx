@@ -4,6 +4,12 @@ import { RenderOptionsChooser } from "./render-options-chooser";
 import { ColorSelector } from "./color-selector";
 import chroma, { InterpolationMode } from "chroma-js";
 import { Divider } from "primereact/divider";
+import { Sidebar } from "primereact/sidebar";
+import { useState } from "react";
+import { Preset, Presets } from "./presets/presets";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { InputText } from "primereact/inputtext";
+import { useLocalStorage } from "primereact/hooks";
 
 export interface Settings {
   style: string;
@@ -18,7 +24,22 @@ interface SettingsEditorProps {
   onSettingsChange: (settings: Settings) => void;
 }
 
+const AUTUMN_PRESET: Preset = {
+  name: "Autumn",
+  settings: {
+    style: "𝑀𝑎𝑡ℎ𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝐼𝑡𝑎𝑙𝑖𝑐",
+    mode: "oklch",
+    colors: ["ff9524", "c9663e", "a80f1c"],
+  },
+};
+
+const INITIAL_PRESETS = [AUTUMN_PRESET];
+
 export function SettingsEditor(props: SettingsEditorProps) {
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [presets, setPresets] = useLocalStorage(INITIAL_PRESETS, "presets");
+  const [newPresetName, setNewPresetName] = useState("");
   const { onSettingsChange, settings } = props;
   const { colors, mode, style } = settings;
   const mappedColors = colors.map((color, index) => {
@@ -29,7 +50,7 @@ export function SettingsEditor(props: SettingsEditorProps) {
         onRemove={() => {
           const newColors = [...colors];
           const filteredColors = newColors.filter(
-            (_color, colorIndex) => colorIndex !== index,
+            (_color, colorIndex) => colorIndex !== index
           );
           const validColors = filteredColors.filter((color) => {
             if (!chroma.valid(color)) {
@@ -67,6 +88,50 @@ export function SettingsEditor(props: SettingsEditorProps) {
         <div
           style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
         >
+          <ConfirmDialog
+            visible={dialogVisible}
+            onHide={() => setDialogVisible(false)}
+            message={
+              <InputText
+                value={newPresetName}
+                onChange={(e) => setNewPresetName(e.target.value)}
+              />
+            }
+            header={"name preset"}
+            defaultFocus="accept"
+            acceptLabel="Save"
+            rejectLabel="Cancel"
+            accept={() => {
+              setNewPresetName("");
+              setPresets([...presets, { name: newPresetName, settings }]);
+            }}
+          />
+          <div>
+            <Button label="Show presets" onClick={() => setVisible(true)} />
+            <Button
+              outlined
+              label="Save as preset"
+              onClick={() => setDialogVisible(true)}
+            />
+          </div>
+          <Sidebar
+            visible={visible}
+            onHide={() => setVisible(false)}
+            position="right"
+          >
+            <Presets
+              presets={presets}
+              onPresetDelete={(name) =>
+                setPresets((previousPresets) =>
+                  previousPresets.filter((preset) => preset.name !== name)
+                )
+              }
+              onPresetSelect={(settings) => {
+                onSettingsChange(settings);
+                setVisible(false);
+              }}
+            />
+          </Sidebar>
           {mappedColors}
           <div style={{ display: "flex", placeItems: "center" }}>
             <Button
