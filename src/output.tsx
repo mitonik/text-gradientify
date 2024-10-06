@@ -41,9 +41,9 @@ export function Output(props: OutputProps) {
     });
   };
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Toast ref={toast} />
-      <p>{gradientText}</p>
+      <div>{gradientText}</div>
       <div>
         <Button
           outlined
