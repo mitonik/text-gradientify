@@ -40,7 +40,7 @@ export const mathematicalItalicMap = new Map([
   ["m", "𝑚"],
   ["n", "𝑛"],
   ["o", "𝑜"],
-  ["p", "𝑜"],
+  ["p", "𝑝"],
   ["q", "𝑞"],
   ["r", "𝑟"],
   ["s", "𝑠"],
