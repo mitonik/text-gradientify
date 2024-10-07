@@ -16,10 +16,11 @@ const MODES: chroma.InterpolationMode[] = [
 ];
 const STYLES = [
   "Normal",
-  "𝑀𝑎𝑡ℎ𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝐼𝑡𝑎𝑙𝑖𝑐",
-  "𝐌𝐚𝐭𝐡𝐞𝐦𝐚𝐭𝐢𝐜𝐚𝐥 𝐁𝐨𝐥𝐝",
-  "𝑴𝒂𝒕𝒉𝒆𝒎𝒂𝒕𝒊𝒄𝒂𝒍 𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
-  "ℳ𝒶𝓉𝒽ℯ𝓂𝒶𝓉𝒾𝒸𝒶𝓁 𝒮𝒸𝓇𝒾𝓅𝓉",
+  "𝐼𝑡𝑎𝑙𝑖𝑐",
+  "𝐁𝐨𝐥𝐝",
+  "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
+  "𝒮𝒸𝓇𝒾𝓅𝓉",
+  "𝓢𝓬𝓻𝓲𝓹𝓽 𝓑𝓸𝓵𝓭",
 ];
 
 interface RenderOptionsChooserProps {
