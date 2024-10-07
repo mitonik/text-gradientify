@@ -122,13 +122,7 @@ export function SettingsEditor(props: SettingsEditorProps) {
       <div style={{ display: "flex", gap: "0.5rem", flexDirection: "column" }}>
         {mappedColors}
       </div>
-      <div style={{ display: "flex", gap: "0.5rem", placeItems: "center" }}>
-        <RenderOptionsChooser
-          mode={mode}
-          onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
-          onStyleChange={(style) => onSettingsChange({ ...settings, style })}
-          style={style}
-        />
+      <div style={{ display: "flex", gap: "0.5rem" }}>
         <Button
           label="Add color"
           icon={<span className="material-symbols-outlined">add</span>}
@@ -139,13 +133,19 @@ export function SettingsEditor(props: SettingsEditorProps) {
             })
           }
         />
-      </div>
-      <div style={{ display: "flex", gap: "0.5rem" }}>
         <Button label="Show presets" onClick={() => setVisible(true)} />
         <Button
           outlined
           label="Save as preset"
           onClick={() => setDialogVisible(true)}
+        />
+      </div>
+      <div style={{ display: "flex", gap: "0.5rem", placeItems: "center" }}>
+        <RenderOptionsChooser
+          mode={mode}
+          onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
+          onStyleChange={(style) => onSettingsChange({ ...settings, style })}
+          style={style}
         />
       </div>
     </div>
