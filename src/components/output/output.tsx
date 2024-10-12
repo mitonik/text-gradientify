@@ -89,12 +89,12 @@ export function Output(props: OutputProps) {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-8">
       <Toast ref={toast} />
       <div>{gradientText}</div>
       {textWithAppliedStyle.length > 0 && (
         <Button
-          className="xl:w-fit"
+          className="xl:w-64"
           outlined
           icon={<span className="material-symbols-outlined">content_copy</span>}
           label="Copy HTML"

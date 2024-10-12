@@ -81,7 +81,7 @@ export function SettingsEditor(props: SettingsEditorProps) {
   });
 
   return (
-    <div className="flex flex-col gap-3">
+    <div>
       <ConfirmDialog
         visible={dialogVisible}
         onHide={() => setDialogVisible(false)}
@@ -119,37 +119,41 @@ export function SettingsEditor(props: SettingsEditorProps) {
           }}
         />
       </Sidebar>
-      <div className="flex gap-1">
-        <Button
-          style={{ width: "100%" }}
-          label="Show presets"
-          onClick={() => setVisible(true)}
+      <div className="flex flex-col gap-8">
+        <RenderOptionsChooser
+          mode={mode}
+          onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
+          onStyleChange={(style) => onSettingsChange({ ...settings, style })}
+          style={style}
         />
-        <Button
-          style={{ width: "100%" }}
-          outlined
-          label="Save as preset"
-          onClick={() => setDialogVisible(true)}
-        />
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">{mappedColors}</div>
+          <Button
+            outlined
+            label="Add color"
+            icon={<span className="material-symbols-outlined">add</span>}
+            onClick={() =>
+              onSettingsChange({
+                ...settings,
+                colors: [...colors, DEFAULT_NEW_COLOR],
+              })
+            }
+          />
+        </div>
+        <div className="flex gap-1">
+          <Button
+            style={{ width: "100%" }}
+            label="Show presets"
+            onClick={() => setVisible(true)}
+          />
+          <Button
+            style={{ width: "100%" }}
+            outlined
+            label="Save as preset"
+            onClick={() => setDialogVisible(true)}
+          />
+        </div>
       </div>
-      <RenderOptionsChooser
-        mode={mode}
-        onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
-        onStyleChange={(style) => onSettingsChange({ ...settings, style })}
-        style={style}
-      />
-      <div className="flex flex-col gap-3">{mappedColors}</div>
-      <Button
-        outlined
-        label="Add color"
-        icon={<span className="material-symbols-outlined">add</span>}
-        onClick={() =>
-          onSettingsChange({
-            ...settings,
-            colors: [...colors, DEFAULT_NEW_COLOR],
-          })
-        }
-      />
     </div>
   );
 }
