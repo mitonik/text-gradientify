@@ -69,7 +69,7 @@ export function RenderOptionsChooser(props: RenderOptionsChooserProps) {
           optionLabel="name"
           placeholder="Select a mode"
         />
-        <label htmlFor="mode">Mix mode</label>
+        <label htmlFor="mode">Color mode</label>
       </FloatLabel>
       <FloatLabel style={{ width: "100%" }}>
         <Dropdown
@@ -80,7 +80,7 @@ export function RenderOptionsChooser(props: RenderOptionsChooserProps) {
           onChange={(e) => onStyleChange(e.value)}
           placeholder="Select a style"
         />
-        <label htmlFor="style">Style</label>
+        <label htmlFor="style">Text style</label>
       </FloatLabel>
     </div>
   );
