@@ -13,20 +13,20 @@ export function PresetItem(props: PresetItemProps) {
   const { onPresetSelect, preset, onPresetDelete } = props;
 
   const footer = (
-    <div style={{ display: "flex", gap: "0.5rem" }}>
+    <div className="flex gap-1">
       <Button label="Use" onClick={() => onPresetSelect(preset)} />
       <Button
-        severity="danger"
-        outlined
         label="Delete"
         onClick={() => onPresetDelete(preset.name)}
+        severity="danger"
       />
     </div>
   );
+
   return (
     <Card title={preset.name} footer={footer}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <div>
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap gap-1">
           {preset.settings.colors.map((color, index) => (
             <ColorPicker value={color} key={index} />
           ))}

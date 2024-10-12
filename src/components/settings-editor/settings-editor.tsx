@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { RenderOptionsChooser } from "./render-options-chooser";
 import { ColorSelector } from "./color-selector";
-import chroma, { InterpolationMode } from "chroma-js";
+import { InterpolationMode } from "chroma-js";
 import { Sidebar } from "primereact/sidebar";
 import { useState } from "react";
 import { Preset, Presets } from "./presets/presets";
@@ -9,12 +9,21 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 import { InputText } from "primereact/inputtext";
 import { useLocalStorage } from "primereact/hooks";
 
+export type Style =
+  | "normal"
+  | "italic"
+  | "script"
+  | "script-bold"
+  | "bold"
+  | "bold-italic";
+
 export interface Settings {
-  style: string;
+  style: Style;
   mode: InterpolationMode;
   colors: string[];
 }
 
+const MINIMUM_COLOR_COUNT = 1;
 const DEFAULT_NEW_COLOR = "000000";
 
 interface SettingsEditorProps {
@@ -25,7 +34,7 @@ interface SettingsEditorProps {
 const AUTUMN_PRESET: Preset = {
   name: "Autumn",
   settings: {
-    style: "𝑀𝑎𝑡ℎ𝑒𝑚𝑎𝑡𝑖𝑐𝑎𝑙 𝐼𝑡𝑎𝑙𝑖𝑐",
+    style: "italic",
     mode: "oklch",
     colors: ["ff9524", "c9663e", "a80f1c"],
   },
@@ -40,7 +49,17 @@ export function SettingsEditor(props: SettingsEditorProps) {
   const [newPresetName, setNewPresetName] = useState("");
   const { onSettingsChange, settings } = props;
   const { colors, mode, style } = settings;
+
   const mappedColors = colors.map((color, index) => {
+    const handleColorChange = (value: string) => {
+      const newColors = [...colors];
+      newColors[index] = value;
+      onSettingsChange({
+        ...settings,
+        colors: newColors,
+      });
+    };
+
     return (
       <ColorSelector
         key={index}
@@ -48,40 +67,21 @@ export function SettingsEditor(props: SettingsEditorProps) {
         onRemove={() => {
           const newColors = [...colors];
           const filteredColors = newColors.filter(
-            (_color, colorIndex) => colorIndex !== index
+            (_color, colorIndex) => colorIndex !== index,
           );
-          const validColors = filteredColors.filter((color) => {
-            if (!chroma.valid(color)) {
-              return;
-            }
-            return color;
-          });
           onSettingsChange({
             ...settings,
-            colors: validColors,
+            colors: filteredColors,
           });
         }}
-        showRemove={colors.length > 1}
-        onChange={(value) => {
-          const newColors = [...colors];
-          newColors[index] = value;
-          const validColors = newColors.filter((color) => {
-            if (!chroma.valid(color)) {
-              return;
-            }
-            return color;
-          });
-          onSettingsChange({
-            ...settings,
-            colors: validColors,
-          });
-        }}
+        showRemove={colors.length > MINIMUM_COLOR_COUNT}
+        onChange={handleColorChange}
       />
     );
   });
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div className="flex flex-col gap-3">
       <ConfirmDialog
         visible={dialogVisible}
         onHide={() => setDialogVisible(false)}
@@ -110,7 +110,7 @@ export function SettingsEditor(props: SettingsEditorProps) {
           presets={presets}
           onPresetDelete={(name) =>
             setPresets((previousPresets) =>
-              previousPresets.filter((preset) => preset.name !== name)
+              previousPresets.filter((preset) => preset.name !== name),
             )
           }
           onPresetSelect={(settings) => {
@@ -119,35 +119,37 @@ export function SettingsEditor(props: SettingsEditorProps) {
           }}
         />
       </Sidebar>
-      <div style={{ display: "flex", gap: "0.5rem", flexDirection: "column" }}>
-        {mappedColors}
-      </div>
-      <div style={{ display: "flex", gap: "0.5rem" }}>
+      <div className="flex gap-1">
         <Button
-          label="Add color"
-          icon={<span className="material-symbols-outlined">add</span>}
-          onClick={() =>
-            onSettingsChange({
-              ...settings,
-              colors: [...colors, DEFAULT_NEW_COLOR],
-            })
-          }
+          style={{ width: "100%" }}
+          label="Show presets"
+          onClick={() => setVisible(true)}
         />
-        <Button label="Show presets" onClick={() => setVisible(true)} />
         <Button
+          style={{ width: "100%" }}
           outlined
           label="Save as preset"
           onClick={() => setDialogVisible(true)}
         />
       </div>
-      <div style={{ display: "flex", gap: "0.5rem", placeItems: "center" }}>
-        <RenderOptionsChooser
-          mode={mode}
-          onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
-          onStyleChange={(style) => onSettingsChange({ ...settings, style })}
-          style={style}
-        />
-      </div>
+      <RenderOptionsChooser
+        mode={mode}
+        onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
+        onStyleChange={(style) => onSettingsChange({ ...settings, style })}
+        style={style}
+      />
+      <div className="flex flex-col gap-3">{mappedColors}</div>
+      <Button
+        outlined
+        label="Add color"
+        icon={<span className="material-symbols-outlined">add</span>}
+        onClick={() =>
+          onSettingsChange({
+            ...settings,
+            colors: [...colors, DEFAULT_NEW_COLOR],
+          })
+        }
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { InterpolationMode } from "chroma-js";
 import { Dropdown } from "primereact/dropdown";
 import { FloatLabel } from "primereact/floatlabel";
+import { Style } from "./settings-editor";
 
 const MODES: chroma.InterpolationMode[] = [
   "hcl",
@@ -14,28 +15,53 @@ const MODES: chroma.InterpolationMode[] = [
   "oklch",
   "rgb",
 ];
-const STYLES = [
-  "Normal",
-  "𝐼𝑡𝑎𝑙𝑖𝑐",
-  "𝐁𝐨𝐥𝐝",
-  "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
-  "𝒮𝒸𝓇𝒾𝓅𝓉",
-  "𝓢𝓬𝓻𝓲𝓹𝓽 𝓑𝓸𝓵𝓭",
+
+interface StyleOption {
+  label: string;
+  value: Style;
+}
+
+const STYLES: StyleOption[] = [
+  {
+    label: "Normal",
+    value: "normal",
+  },
+  {
+    label: "𝐁𝐨𝐥𝐝",
+    value: "bold",
+  },
+  {
+    label: "𝐼𝑡𝑎𝑙𝑖𝑐",
+    value: "italic",
+  },
+  {
+    label: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
+    value: "bold-italic",
+  },
+  {
+    label: "𝒮𝒸𝓇𝒾𝓅𝓉",
+    value: "script",
+  },
+  {
+    label: "𝓢𝓬𝓻𝓲𝓹𝓽 𝓑𝓸𝓵𝓭",
+    value: "script-bold",
+  },
 ];
 
 interface RenderOptionsChooserProps {
   onModeChange: (mode: InterpolationMode) => void;
-  onStyleChange: (style: string) => void;
+  onStyleChange: (style: Style) => void;
   mode: InterpolationMode;
-  style: string;
+  style: Style;
 }
 
 export function RenderOptionsChooser(props: RenderOptionsChooserProps) {
   const { mode, onModeChange, onStyleChange, style } = props;
   return (
-    <div style={{ display: "flex", gap: "0.5rem" }}>
-      <FloatLabel>
+    <div className="flex gap-1">
+      <FloatLabel style={{ width: "100%" }}>
         <Dropdown
+          style={{ width: "100%" }}
           id="mode"
           value={mode}
           onChange={(e) => onModeChange(e.value)}
@@ -45,13 +71,13 @@ export function RenderOptionsChooser(props: RenderOptionsChooserProps) {
         />
         <label htmlFor="mode">Mix mode</label>
       </FloatLabel>
-      <FloatLabel>
+      <FloatLabel style={{ width: "100%" }}>
         <Dropdown
+          style={{ width: "100%" }}
           id="style"
           options={STYLES}
           value={style}
           onChange={(e) => onStyleChange(e.value)}
-          optionLabel="name"
           placeholder="Select a style"
         />
         <label htmlFor="style">Style</label>

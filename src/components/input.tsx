@@ -1,22 +1,18 @@
 import { InputTextarea } from "primereact/inputtextarea";
-import { ChangeEventHandler } from "react";
 
 interface InputProps {
   text: string;
-  onChange: ChangeEventHandler<HTMLTextAreaElement>;
+  onChange: (text: string) => void;
 }
 
 export function Input(props: InputProps) {
   const { onChange, text } = props;
   return (
     <InputTextarea
-      rows={5}
       autoResize
-      id="input"
-      cols={30}
+      onChange={(e) => onChange(e.target.value)}
       style={{ width: "100%" }}
       value={text}
-      onChange={onChange}
     />
   );
 }

@@ -15,7 +15,7 @@ interface PresetsProps {
 export function Presets(props: PresetsProps) {
   const { onPresetSelect, presets, onPresetDelete } = props;
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div className="flex flex-col gap-3">
       {presets.map((preset, index) => (
         <PresetItem
           onPresetSelect={(preset) => onPresetSelect(preset.settings)}
