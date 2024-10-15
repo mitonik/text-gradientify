@@ -7,6 +7,8 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { useRef, useState } from "react";
 
+const THREE_SECONDS = 1000 * 3;
+
 interface StyleOption {
   label: string;
   value: Style;
@@ -55,6 +57,16 @@ export function PresetItem(props: PresetItemProps) {
     onPresetDelete(preset.name);
   };
 
+  const copyColor = async (color: string) => {
+    await navigator.clipboard.writeText(color);
+    toast.current?.show({
+      severity: "info",
+      summary: "Copied",
+      detail: "Copied color to clipboard.",
+      life: THREE_SECONDS,
+    });
+  };
+
   const footer = (
     <div className="flex gap-1">
       <Button
@@ -95,7 +107,12 @@ export function PresetItem(props: PresetItemProps) {
         </div>
         <div className="flex flex-wrap gap-1">
           {preset.settings.colors.map((color, index) => (
-            <ColorPicker value={color} key={index} />
+            <ColorPicker
+              key={index}
+              onClick={() => copyColor(color)}
+              tooltip={color}
+              value={color}
+            />
           ))}
         </div>
       </div>
