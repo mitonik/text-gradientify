@@ -110,7 +110,7 @@ export function PresetItem(props: PresetItemProps) {
             <ColorPicker
               key={index}
               onClick={() => copyColor(color)}
-              tooltip={color}
+              tooltip={`Copy "${color}"`}
               value={color}
             />
           ))}
