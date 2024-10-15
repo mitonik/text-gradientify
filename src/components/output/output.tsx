@@ -78,8 +78,8 @@ export function Output(props: OutputProps) {
     );
   });
 
-  const showInfo = () => {
-    navigator.clipboard.writeText(code);
+  const showInfo = async () => {
+    await navigator.clipboard.writeText(code);
     toast.current?.show({
       severity: "info",
       summary: "Copied",
