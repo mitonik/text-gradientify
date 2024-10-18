@@ -21,7 +21,7 @@ interface StyleOption {
   value: Style;
 }
 
-const STYLES: StyleOption[] = [
+export const STYLES: StyleOption[] = [
   {
     label: "Normal",
     value: "normal",

@@ -2,44 +2,12 @@ import { Card } from "primereact/card";
 import { ColorPicker } from "primereact/colorpicker";
 import { Button } from "primereact/button";
 import { Preset } from "./presets";
-import { Style } from "../settings-editor";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { useRef, useState } from "react";
+import { STYLES } from "../render-options-chooser";
 
 const THREE_SECONDS = 1000 * 3;
-
-interface StyleOption {
-  label: string;
-  value: Style;
-}
-
-const STYLES: StyleOption[] = [
-  {
-    label: "Normal",
-    value: "normal",
-  },
-  {
-    label: "𝐁𝐨𝐥𝐝",
-    value: "bold",
-  },
-  {
-    label: "𝐼𝑡𝑎𝑙𝑖𝑐",
-    value: "italic",
-  },
-  {
-    label: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
-    value: "bold-italic",
-  },
-  {
-    label: "𝒮𝒸𝓇𝒾𝓅𝓉",
-    value: "script",
-  },
-  {
-    label: "𝓢𝓬𝓻𝓲𝓹𝓽 𝓑𝓸𝓵𝓭",
-    value: "script-bold",
-  },
-];
 
 interface PresetItemProps {
   preset: Preset;
