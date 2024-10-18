@@ -15,7 +15,11 @@ export type Style =
   | "script"
   | "script-bold"
   | "bold"
-  | "bold-italic";
+  | "bold-italic"
+  | "fraktur"
+  | "bold-fraktur"
+  | "monospace"
+  | "double-struck";
 
 export interface Settings {
   style: Style;

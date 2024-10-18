@@ -8,6 +8,10 @@ import { mathematicalScriptMap } from "./maps/mathematical-script";
 import { mathematicalScriptBoldMap } from "./maps/mathematical-script-bold";
 import chroma from "chroma-js";
 import { Settings } from "../settings-editor/settings-editor";
+import { mathematicalFrakturMap } from "./maps/mathematical-fraktur";
+import { mathematicalBoldFrakturMap } from "./maps/mathematical-bold-fraktur";
+import { mathematicalMonospaceMap } from "./maps/mathematical-monospace";
+import { mathematicalDoubleStruckMap } from "./maps/mathematical-double-struck";
 
 const DEFAULT_OUTPUT_COLOR = "000000";
 const THREE_SECONDS = 3000;
@@ -49,6 +53,22 @@ export function Output(props: OutputProps) {
       case "script-bold":
         return mathematicalScriptBoldMap.get(letter)
           ? mathematicalScriptBoldMap.get(letter)
+          : letter;
+      case "fraktur":
+        return mathematicalFrakturMap.get(letter)
+          ? mathematicalFrakturMap.get(letter)
+          : letter;
+      case "bold-fraktur":
+        return mathematicalBoldFrakturMap.get(letter)
+          ? mathematicalBoldFrakturMap.get(letter)
+          : letter;
+      case "monospace":
+        return mathematicalMonospaceMap.get(letter)
+          ? mathematicalMonospaceMap.get(letter)
+          : letter;
+      case "double-struck":
+        return mathematicalDoubleStruckMap.get(letter)
+          ? mathematicalDoubleStruckMap.get(letter)
           : letter;
     }
   });
