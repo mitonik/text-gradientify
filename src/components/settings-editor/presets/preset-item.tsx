@@ -5,7 +5,7 @@ import { Preset } from "./presets";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { useRef, useState } from "react";
-import { STYLES } from "../render-options-chooser";
+import { STYLES } from "../styles";
 
 const THREE_SECONDS = 1000 * 3;
 
