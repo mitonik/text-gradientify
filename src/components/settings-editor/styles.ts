@@ -11,12 +11,12 @@ export const STYLES: StyleOption[] = [
     value: "normal",
   },
   {
-    label: "𝐁𝐨𝐥𝐝",
-    value: "bold",
-  },
-  {
     label: "𝐼𝑡𝑎𝑙𝑖𝑐",
     value: "italic",
+  },
+  {
+    label: "𝐁𝐨𝐥𝐝",
+    value: "bold",
   },
   {
     label: "𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄",
