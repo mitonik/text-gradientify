@@ -8,11 +8,13 @@ interface ColorSelectorProps {
   color: string;
   onChange: (value: string) => void;
   onRemove: () => void;
+  onMoveUp: () => void;
+  showMoveUp: boolean;
   showRemove: boolean;
 }
 
 export const ColorSelector = (props: ColorSelectorProps) => {
-  const { color, onChange, showRemove, onRemove } = props;
+  const { color, onChange, onMoveUp, showRemove, showMoveUp, onRemove } = props;
   const id = useId();
   return (
     <div className="flex place-items-center gap-3">
@@ -26,14 +28,26 @@ export const ColorSelector = (props: ColorSelectorProps) => {
         value={color}
         onChange={(e) => onChange(e.target.value)}
       />
-      {showRemove && (
-        <Button
-          text
-          tooltip="Remove color"
-          onClick={onRemove}
-          icon={<span className="material-symbols-outlined">close</span>}
-        />
-      )}
+      <div className="flex">
+        {showMoveUp && (
+          <Button
+            text
+            tooltip="Move up"
+            onClick={onMoveUp}
+            icon={
+              <span className="material-symbols-outlined">arrow_upward</span>
+            }
+          />
+        )}
+        {showRemove && (
+          <Button
+            text
+            tooltip="Remove color"
+            onClick={onRemove}
+            icon={<span className="material-symbols-outlined">close</span>}
+          />
+        )}
+      </div>
     </div>
   );
 };

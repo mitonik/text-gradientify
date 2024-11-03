@@ -79,6 +79,25 @@ export function SettingsEditor(props: SettingsEditorProps) {
           });
         }}
         showRemove={colors.length > MINIMUM_COLOR_COUNT}
+        showMoveUp={index !== 0}
+        onMoveUp={() => {
+          const firstColorIndex = index;
+          const secondColorIndex = index - 1;
+          const firstColor = colors[firstColorIndex];
+          const secondColor = colors[secondColorIndex];
+          const colorsBefore = colors.slice(0, index - 1);
+          const colorsAfter = colors.slice(index + 1);
+          const newColors = [
+            ...colorsBefore,
+            firstColor,
+            secondColor,
+            ...colorsAfter,
+          ];
+          onSettingsChange({
+            ...settings,
+            colors: newColors,
+          });
+        }}
         onChange={handleColorChange}
       />
     );
