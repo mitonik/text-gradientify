@@ -111,7 +111,7 @@ export function Output(props: OutputProps) {
   return (
     <div className="flex flex-col gap-8">
       <Toast ref={toast} />
-      <div>{gradientText}</div>
+      <div className="whitespace-pre">{gradientText}</div>
       {textWithAppliedStyle.length > 0 && (
         <Button
           className="xl:w-64"
