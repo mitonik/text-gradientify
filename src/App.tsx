@@ -10,9 +10,10 @@ import { Toolbar } from "primereact/toolbar";
 import { Divider } from "primereact/divider";
 
 const INITIAL_SETTINGS: Settings = {
-  style: "normal",
-  mode: "rgb",
   colors: ["ff2424", "328a32", "008ae5"],
+  gradientMode: "entire-text",
+  mode: "rgb",
+  style: "normal",
 };
 
 const INITIAL_TEXT =

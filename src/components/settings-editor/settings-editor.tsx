@@ -21,10 +21,13 @@ export type Style =
   | "monospace"
   | "double-struck";
 
+export type GradientMode = "entire-text" | "per-line";
+
 export interface Settings {
-  style: Style;
-  mode: InterpolationMode;
   colors: string[];
+  gradientMode: GradientMode;
+  mode: InterpolationMode;
+  style: Style;
 }
 
 const MINIMUM_COLOR_COUNT = 1;
@@ -38,9 +41,10 @@ interface SettingsEditorProps {
 const AUTUMN_PRESET: Preset = {
   name: "Autumn",
   settings: {
-    style: "italic",
-    mode: "oklch",
     colors: ["ff9524", "c9663e", "a80f1c"],
+    gradientMode: "entire-text",
+    mode: "oklch",
+    style: "italic",
   },
 };
 
@@ -52,7 +56,7 @@ export function SettingsEditor(props: SettingsEditorProps) {
   const [presets, setPresets] = useLocalStorage(INITIAL_PRESETS, "presets");
   const [newPresetName, setNewPresetName] = useState("");
   const { onSettingsChange, settings } = props;
-  const { colors, mode, style } = settings;
+  const { colors, gradientMode, mode, style } = settings;
 
   const mappedColors = colors.map((color, index) => {
     const handleColorChange = (value: string) => {
@@ -144,7 +148,11 @@ export function SettingsEditor(props: SettingsEditorProps) {
       </Sidebar>
       <div className="flex flex-col gap-8">
         <RenderOptionsChooser
+          gradientMode={gradientMode}
           mode={mode}
+          onGradientModeChange={(gradientMode) =>
+            onSettingsChange({ ...settings, gradientMode })
+          }
           onModeChange={(mode) => onSettingsChange({ ...settings, mode })}
           onStyleChange={(style) => onSettingsChange({ ...settings, style })}
           style={style}

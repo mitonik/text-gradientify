@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { mathematicalItalicMap } from "./maps/mathematical-italic";
 import { mathematicalBoldMap } from "./maps/mathematical-bold";
 import { mathematicalBoldItalicMap } from "./maps/mathematical-bold-italic";
@@ -25,7 +25,7 @@ export function Output(props: OutputProps) {
   const toast = useRef<Toast>(null);
 
   const {
-    settings: { colors, mode, style },
+    settings: { colors, gradientMode, mode, style },
     text,
   } = props;
 
@@ -77,26 +77,57 @@ export function Output(props: OutputProps) {
     chroma.valid(color) ? color : DEFAULT_OUTPUT_COLOR,
   );
 
-  const characterCount = [...textWithAppliedStyle].length;
+  const textLines =
+    gradientMode === "entire-text"
+      ? [textWithAppliedStyle.join("")]
+      : textWithAppliedStyle.join("").split("\n");
 
-  const colorRange = chroma
-    .scale(validColors)
-    .mode(mode)
-    .colors(characterCount);
+  const gradientText = textLines.map((textLine, textLineIndex) => {
+    const colorRange = chroma
+      .scale(validColors)
+      .mode(mode)
+      .colors(textLine.length);
 
-  const code = textWithAppliedStyle
-    .map((letter, index) => {
-      return `<span style="color: ${colorRange[index]}">${letter}</span>`;
-    })
-    .join("");
-
-  const gradientText = textWithAppliedStyle.map((letter, index) => {
+    const gradientLine = [...textLine].map((letter, index) => {
+      const key = `${textLineIndex}-${index}`;
+      if (letter === "\n") {
+        return <br key={key} />;
+      }
+      return (
+        <span key={key} style={{ color: colorRange[index] }}>
+          {letter}
+        </span>
+      );
+    });
     return (
-      <span key={index} style={{ color: colorRange[index] }}>
-        {letter}
-      </span>
+      <Fragment key={textLineIndex}>
+        {textLineIndex !== 0 && <br />}
+        {gradientLine}
+      </Fragment>
     );
   });
+
+  const code = textLines
+    .map((textLine, textLineIndex) => {
+      const colorRange = chroma
+        .scale(validColors)
+        .mode(mode)
+        .colors(textLine.length);
+
+      const gradientLine = [...textLine]
+        .map((letter, index) => {
+          if (letter === "\n") {
+            return "<br>";
+          }
+          return `<span style="color: ${colorRange[index]}">${letter}</span>`;
+        })
+        .join("");
+      if (textLineIndex !== 0) {
+        return `<br>${gradientLine}`;
+      }
+      return gradientLine;
+    })
+    .join("");
 
   const showInfo = async () => {
     await navigator.clipboard.writeText(code);
