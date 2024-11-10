@@ -86,7 +86,7 @@ export function Output(props: OutputProps) {
     const colorRange = chroma
       .scale(validColors)
       .mode(mode)
-      .colors(textLine.length);
+      .colors([...textLine].length);
 
     const gradientLine = [...textLine].map((letter, index) => {
       const key = `${textLineIndex}-${index}`;
