@@ -1,7 +1,6 @@
 @layer tailwind-base, primereact, tailwind-utilities;
 
 @import url("primereact/resources/themes/md-light-deeppurple/theme.css");
-@import url("material-symbols");
 
 @layer tailwind-base {
   @tailwind base;
