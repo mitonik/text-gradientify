@@ -71,6 +71,8 @@ export function PresetItem(props: PresetItemProps) {
         <div className="flex">
           <span>{preset.settings.mode}</span>
           <span className="px-2">|</span>
+          <span>{preset.settings.gradientMode}</span>
+          <span className="px-2">|</span>
           <span>{styleLabel?.label}</span>
         </div>
         <div className="flex flex-wrap gap-1">
