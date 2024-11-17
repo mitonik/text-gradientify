@@ -140,8 +140,8 @@ export function SettingsEditor(props: SettingsEditorProps) {
               previousPresets.filter((preset) => preset.name !== name),
             )
           }
-          onPresetSelect={(settings) => {
-            onSettingsChange(settings);
+          onPresetSelect={(preset) => {
+            onSettingsChange(preset.settings);
             setVisible(false);
           }}
         />

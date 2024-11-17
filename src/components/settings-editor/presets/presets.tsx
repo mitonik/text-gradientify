@@ -7,7 +7,7 @@ export interface Preset {
 }
 
 interface PresetsProps {
-  onPresetSelect: (preset: Settings) => void;
+  onPresetSelect: (preset: Preset) => void;
   presets: Preset[];
   onPresetDelete: (name: string) => void;
 }
@@ -18,7 +18,7 @@ export function Presets(props: PresetsProps) {
     <div className="flex flex-col gap-3">
       {presets.map((preset, index) => (
         <PresetItem
-          onPresetSelect={(preset) => onPresetSelect(preset.settings)}
+          onPresetSelect={(preset) => onPresetSelect(preset)}
           onPresetDelete={(name) => onPresetDelete(name)}
           key={index}
           preset={preset}
