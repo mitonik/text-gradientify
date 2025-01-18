@@ -1,4 +1,4 @@
-import { InterpolationMode } from "chroma-js";
+import chroma from "chroma-js";
 import { Dropdown } from "primereact/dropdown";
 import { FloatLabel } from "primereact/floatlabel";
 import { GradientMode, Style } from "./settings-editor";
@@ -21,9 +21,9 @@ const GRADIENT_MODES: GradientMode[] = ["entire-text", "per-line"];
 
 interface RenderOptionsChooserProps {
   gradientMode: GradientMode;
-  mode: InterpolationMode;
+  mode: chroma.InterpolationMode;
   onGradientModeChange: (gradientMode: GradientMode) => void;
-  onModeChange: (mode: InterpolationMode) => void;
+  onModeChange: (mode: chroma.InterpolationMode) => void;
   onStyleChange: (style: Style) => void;
   style: Style;
 }

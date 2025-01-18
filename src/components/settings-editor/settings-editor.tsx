@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { RenderOptionsChooser } from "./render-options-chooser";
 import { ColorSelector } from "./color-selector";
-import { InterpolationMode } from "chroma-js";
+import chroma from "chroma-js";
 import { Sidebar } from "primereact/sidebar";
 import { useState } from "react";
 import { Preset, Presets } from "./presets/presets";
@@ -26,7 +26,7 @@ export type GradientMode = "entire-text" | "per-line";
 export interface Settings {
   colors: string[];
   gradientMode: GradientMode;
-  mode: InterpolationMode;
+  mode: chroma.InterpolationMode;
   style: Style;
 }
 
