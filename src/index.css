@@ -1,6 +1,6 @@
 @layer theme, base, primereact, components, utilities;
 
-@import url("primereact/resources/themes/md-light-deeppurple/theme.css");
+@import "primereact/resources/themes/md-light-deeppurple/theme.css";
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
