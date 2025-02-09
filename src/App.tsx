@@ -36,7 +36,7 @@ export function App() {
   };
 
   return (
-    <main className="mx-auto flex max-w-screen-sm flex-col xl:max-w-screen-xl xl:gap-16">
+    <main className="mx-auto flex max-w-(--breakpoint-sm) flex-col xl:max-w-(--breakpoint-xl) xl:gap-16">
       <Toolbar start={<Title />} />
       <div className="grid grid-cols-1 gap-8 p-4 xl:grid-cols-3 xl:flex-row xl:gap-0">
         <div className="col-span-1 flex w-full">

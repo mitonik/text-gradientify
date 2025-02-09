@@ -1,15 +1,10 @@
-@layer tailwind-base, primereact, tailwind-utilities;
+@layer theme, base, primereact, components, utilities;
 
 @import url("primereact/resources/themes/md-light-deeppurple/theme.css");
 
-@layer tailwind-base {
-  @tailwind base;
-}
-
-@layer tailwind-utilities {
-  @tailwind components;
-  @tailwind utilities;
-}
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 :root {
   background-color: var(--surface-section);
